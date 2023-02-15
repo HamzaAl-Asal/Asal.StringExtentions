@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>Asal.StringCleaner</PackageId>
+    <Version>1.0.0</Version>
+    <Title>Asal.StringCleaner</Title>
+    <Authors>Hamza Asal</Authors>
+    <Company>Hamza Asal</Company>
+    <Product>Asal.StringCleaner</Product>
+    <Description>A package that help your string in mutiple ways of proccess</Description>
+    <PackageTags>String, Cleaner, Strings, Asal, email, string checker</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+  </ItemGroup>
+
+</Project>
