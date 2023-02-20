@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Asal.StringCleaner
+namespace Asal.StringExtentions
 {
-    public class StringCleanerHelper
+    public class StringExtentionsHelper
     {
         #region Clear Special Characters
         /// <summary>

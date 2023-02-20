@@ -1,4 +1,4 @@
-﻿namespace Asal.StringCleaner
+﻿namespace Asal.StringExtentions
 {
     public static class RegularExpressionConstant
     {

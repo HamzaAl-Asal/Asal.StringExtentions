@@ -4,14 +4,14 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <PackageId>Asal.StringCleaner</PackageId>
+    <PackageId>Asal.StringExtentions</PackageId>
     <Version>1.0.0</Version>
-    <Title>Asal.StringCleaner</Title>
+    <Title>Asal.StringExtentions</Title>
     <Authors>Hamza Asal</Authors>
     <Company>Hamza Asal</Company>
-    <Product>Asal.StringCleaner</Product>
-    <Description>A package that help your string in mutiple ways of proccess</Description>
-    <PackageTags>String, Cleaner, Strings, Asal, email, string checker</PackageTags>
+    <Product>Asal.StringExtentions</Product>
+    <Description>A simple package that help you to call some string extentions to make some proccess on the string</Description>
+    <PackageTags>String, extentions, Strings, Asal, email, string checker, string extenstions</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
   </PropertyGroup>
