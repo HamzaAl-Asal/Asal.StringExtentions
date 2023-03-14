@@ -29,7 +29,7 @@ namespace Asal.StringExtentions.Test
 
         #endregion
 
-        #region Separate String by space
+        #region Humanize
 
         [TestMethod]
         public void SeparateStringBySpaceTest()
@@ -37,7 +37,7 @@ namespace Asal.StringExtentions.Test
             var input = "HarryPotter";
             var output = "Harry Potter";
 
-            var res = input.SeparateStringBySpace();
+            var res = input.Humanize();
 
             Assert.AreEqual(output, res);
         }
@@ -93,7 +93,7 @@ namespace Asal.StringExtentions.Test
 
             var output = new List<string> { "test@test.com", "test2@test.com" };
 
-            var res = input.ExtractEmailsFromString();
+            var res = input.ExtractEmails();
 
             Assert.IsTrue(res.SequenceEqual(output));
         }

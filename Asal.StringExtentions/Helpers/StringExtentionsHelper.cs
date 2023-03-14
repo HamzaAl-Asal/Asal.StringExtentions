@@ -22,14 +22,14 @@ namespace Asal.StringExtentions
 
         #endregion
 
-        #region Separate string by space
+        #region Humanize
 
         /// <summary>
-        /// Separate the string with space(s)
+        /// Humanized the input string with space
         /// </summary>
-        /// <param name="str"></param>
-        /// <returns>A new separated string</returns>
-        public static string SeparateStringBySpace(this string str)
+        /// <param name="str">The string to be humanized</param>
+        /// <returns></returns>
+        public static string Humanize(this string str)
         {
             if (string.IsNullOrWhiteSpace(str))
                 return string.Empty;
@@ -72,46 +72,27 @@ namespace Asal.StringExtentions
             return Regex.IsMatch(str, RegularExpressionConstant.emailRegex);
         }
 
-        /// <summary>
-        /// Check e-mail status
-        /// </summary>
-        /// <param name="strings"></param>
-        /// <returns>List of e-mail statuses <br/> True: if valid email, Otherwise False</returns>
-        public static IDictionary<string, bool> GetEmailsStatus(this IEnumerable<string> emails)
-        {
-            if (!emails.Any())
-                return new Dictionary<string, bool>();
-
-            var emailsList = new Dictionary<string, bool>();
-            foreach (var email in emails)
-            {
-                emailsList.Add(email, email.IsValidEmail());
-            }
-
-            return emailsList;
-        }
-
         #endregion
 
-        #region Extract valid Emails from string
+        #region Extract valid Emails 
 
         /// <summary>
         /// Extract valid e-mail(s) from the giving string
         /// </summary>
         /// <param name="str"></param>
         /// <returns>List of valid e-mail(s) </returns>
-        public static IEnumerable<string> ExtractEmailsFromString(this string str)
+        public static IEnumerable<string> ExtractEmails(this string str)
         {
             if (string.IsNullOrWhiteSpace(str))
                 return Enumerable.Empty<string>();
 
-            var emails = new Regex(RegularExpressionConstant.basicEmail)
+            var extractedEmails = new Regex(RegularExpressionConstant.basicEmail)
                 .Matches(str)
                 .Cast<Match>()
                 .Select(x => x.Value)
                 .ToList();
 
-            return emails.Where(x => Regex.IsMatch(x, RegularExpressionConstant.emailRegex)).ToList();
+            return extractedEmails.Where(x => Regex.IsMatch(x, RegularExpressionConstant.emailRegex)).ToList();
         }
 
         #endregion
