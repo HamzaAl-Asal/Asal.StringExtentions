@@ -5,6 +5,7 @@ namespace Asal.StringExtentions
     public static class StringExtentionsHelper
     {
         #region Clear Special Characters
+
         /// <summary>
         /// Clear the special character(s) from the string
         /// </summary>
@@ -16,12 +17,13 @@ namespace Asal.StringExtentions
             if (string.IsNullOrWhiteSpace(str))
                 return string.Empty;
 
-
             return Regex.Replace(str, RegularExpressionConstant.removeSpecialCharacters, replaceSpecialCharWithSpace ? " " : "").Trim();
         }
+
         #endregion
 
         #region Separate string by space
+
         /// <summary>
         /// Separate the string with space(s)
         /// </summary>
@@ -34,9 +36,11 @@ namespace Asal.StringExtentions
 
             return Regex.Replace(str, RegularExpressionConstant.separateWordsWithSpaces, " $1");
         }
+
         #endregion
 
         #region Clear Digits
+
         /// <summary>
         /// Clear digit(s) from string
         /// </summary>
@@ -54,6 +58,7 @@ namespace Asal.StringExtentions
         #endregion
 
         #region Check E-mail
+
         /// <summary>
         /// Check if the email is valid or not
         /// </summary>
@@ -82,11 +87,14 @@ namespace Asal.StringExtentions
             {
                 emailsList.Add(email, email.IsValidEmail());
             }
+
             return emailsList;
         }
+
         #endregion
 
         #region Extract valid Emails from string
+
         /// <summary>
         /// Extract valid e-mail(s) from the giving string
         /// </summary>
@@ -105,6 +113,7 @@ namespace Asal.StringExtentions
 
             return emails.Where(x => Regex.IsMatch(x, RegularExpressionConstant.emailRegex)).ToList();
         }
+
         #endregion
     }
 }
