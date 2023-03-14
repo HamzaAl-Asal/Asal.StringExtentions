@@ -2,7 +2,7 @@
 
 namespace Asal.StringExtentions
 {
-    public static class StringExtentionsHelper
+    public static class StringExtentions
     {
         #region Clear Special Characters
 
