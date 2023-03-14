@@ -2,7 +2,7 @@
 
 namespace Asal.StringExtentions
 {
-    public class StringExtentionsHelper
+    public static class StringExtentionsHelper
     {
         #region Clear Special Characters
         /// <summary>
@@ -11,7 +11,7 @@ namespace Asal.StringExtentions
         /// <param name="str"></param>
         /// <param name="replaceSpecialCharWithSpace"></param>
         /// <returns>A new string that not contain any special character(s)</returns>
-        public static async Task<string> ClearSpecialCharacters(string str, bool replaceSpecialCharWithSpace)
+        public static async Task<string> ClearSpecialCharacters(this string str, bool replaceSpecialCharWithSpace)
         {
             if (string.IsNullOrWhiteSpace(str))
                 return await Task.FromResult(string.Empty);
@@ -26,15 +26,15 @@ namespace Asal.StringExtentions
         /// <param name="strings"></param>
         /// <param name="replaceSpecialCharWithSpace"></param>
         /// <returns>List of string that do not contains special character(s)</returns>
-        public static async Task<List<string>> ClearSpecialCharacters(List<string> strings, bool replaceSpecialCharWithSpace)
+        public static async Task<IEnumerable<string>> ClearSpecialCharacters(this IEnumerable<string> strings, bool replaceSpecialCharWithSpace)
         {
             if (!strings.Any())
-                return await Task.FromResult(new List<string>());
+                return await Task.FromResult(Enumerable.Empty<string>());
 
             var result = new List<string>();
             foreach (var str in strings)
             {
-                result.Add(Regex.Replace(str, RegularExpressionConstant.removeSpecialCharacters, replaceSpecialCharWithSpace == true ? " " : "").Trim());
+                result.Add(await str.ClearSpecialCharacters(replaceSpecialCharWithSpace));
             }
 
             return await Task.FromResult(result);
@@ -47,7 +47,7 @@ namespace Asal.StringExtentions
         /// </summary>
         /// <param name="str"></param>
         /// <returns>A new separated string</returns>
-        public static async Task<string> GetSeparatedString(string str)
+        public static async Task<string> GetSeparatedString(this string str)
         {
             if (string.IsNullOrWhiteSpace(str))
                 return await Task.FromResult(string.Empty);
@@ -61,18 +61,18 @@ namespace Asal.StringExtentions
         /// </summary>
         /// <param name="strings"></param>
         /// <returns>A new list of separated strings</returns>
-        public static Task<List<string>> GetSeparatedString(List<string> strings)
+        public static async Task<IEnumerable<string>> GetSeparatedString(this IEnumerable<string> strings)
         {
             if (!strings.Any())
-                return Task.FromResult(new List<string>());
+                return await Task.FromResult(Enumerable.Empty<string>());
 
             var result = new List<string>();
             foreach (var str in strings)
             {
-                result.Add(Regex.Replace(str, RegularExpressionConstant.separateWordsWithSpaces, " $1"));
+                result.Add(await str.GetSeparatedString());
             }
 
-            return Task.FromResult(result);
+            return await Task.FromResult(result);
         }
         #endregion
 
@@ -83,7 +83,7 @@ namespace Asal.StringExtentions
         /// <param name="str"></param>
         /// <param name="replaceDigitsWithSpace"></param>
         /// <returns>A new string that not contain any digits</returns>
-        public static async Task<string> ClearDigitsFromString(string str, bool replaceDigitsWithSpace)
+        public static async Task<string> ClearDigitsFromString(this string str, bool replaceDigitsWithSpace)
         {
             if (string.IsNullOrWhiteSpace(str))
                 return await Task.FromResult(string.Empty);
@@ -98,15 +98,15 @@ namespace Asal.StringExtentions
         /// <param name="strings"></param>
         /// <param name="replaceDigitsWithSpace"></param>
         /// <returns>A new list of strings that not contains digit(s) in each string</returns>
-        public static async Task<List<string>> ClearDigitsFromString(List<string> strings, bool replaceDigitsWithSpace)
+        public static async Task<IEnumerable<string>> ClearDigitsFromString(this IEnumerable<string> strings, bool replaceDigitsWithSpace)
         {
             if (!strings.Any())
-                return await Task.FromResult(new List<string>());
+                return await Task.FromResult(Enumerable.Empty<string>());
 
             var result = new List<string>();
             foreach (var str in strings)
             {
-                result.Add(Regex.Replace(str, RegularExpressionConstant.removeDigitsFromString, replaceDigitsWithSpace == true ? " " : "").Trim());
+                result.Add(await str.ClearDigitsFromString(replaceDigitsWithSpace));
             }
 
             return await Task.FromResult(result);
@@ -119,7 +119,7 @@ namespace Asal.StringExtentions
         /// </summary>
         /// <param name="str"></param>
         /// <returns>True: if the e-mail is valid, Otherwise False</returns>
-        public static async Task<bool> IsValidEmail(string str)
+        public static async Task<bool> IsValidEmail(this string str)
         {
             if (string.IsNullOrWhiteSpace(str) || !str.Contains('@'))
                 return await Task.FromResult(false);
@@ -132,7 +132,7 @@ namespace Asal.StringExtentions
         /// </summary>
         /// <param name="strings"></param>
         /// <returns>List of e-mail statuses <br/> True: if valid email, Otherwise False</returns>
-        public static async Task<Dictionary<string, bool>> GetEmailsStatus(List<string> emails)
+        public static async Task<IDictionary<string, bool>> GetEmailsStatus(this IEnumerable<string> emails)
         {
             if (!emails.Any())
                 return await Task.FromResult(new Dictionary<string, bool>());
@@ -140,7 +140,7 @@ namespace Asal.StringExtentions
             var emailsList = new Dictionary<string, bool>();
             foreach (var email in emails)
             {
-                emailsList.Add(email, Regex.IsMatch(email, RegularExpressionConstant.emailRegex));
+                emailsList.Add(email, await email.IsValidEmail());
             }
             return await Task.FromResult(emailsList);
         }
@@ -152,10 +152,10 @@ namespace Asal.StringExtentions
         /// </summary>
         /// <param name="str"></param>
         /// <returns>List of valid e-mail(s) </returns>
-        public static async Task<List<string>> ExtractEmailsFromString(string str)
+        public static async Task<IEnumerable<string>> ExtractEmailsFromString(this string str)
         {
             if (string.IsNullOrWhiteSpace(str))
-                return await Task.FromResult(new List<string>());
+                return await Task.FromResult(Enumerable.Empty<string>());
 
             var emails = new Regex(RegularExpressionConstant.basicEmail)
                 .Matches(str)
