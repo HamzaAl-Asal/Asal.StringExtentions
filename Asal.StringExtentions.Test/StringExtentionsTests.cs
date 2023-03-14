@@ -32,7 +32,7 @@ namespace Asal.StringExtentions.Test
         #region Humanize
 
         [TestMethod]
-        public void SeparateStringBySpaceTest()
+        public void HumanizeTest()
         {
             var input = "HarryPotter";
             var output = "Harry Potter";

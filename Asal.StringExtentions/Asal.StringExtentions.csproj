@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>Asal.StringExtentions</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Title>Asal.StringExtentions</Title>
     <Authors>Hamza Asal</Authors>
     <Company>Hamza Asal</Company>
@@ -16,12 +16,20 @@
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/HamzaAl-Asal/Asal.StringExtentions</RepositoryUrl>
     <PackageReleaseNotes>What`s added in this release ?
-1- Extention methods to clear special characters in string or list of strings and replace it with space or not (Optional param).
-2- Extention methods to separate string or list of strings.
-3- Extention methods to cleaer digits from string or list of strings and replace it with space or not (Optional param)
-4- Extention method to check the email status if it`s valid or not for string or list of strings.
+1- Extention methods to clear special characters in string and replace it with space or not (Optional param).
+2- Extention methods to separate string by space (Humanize).
+3- Extention methods to clear digits from string and replace it with space or not (Optional param).
+4- Extention method to check the email status if it`s valid or not for string.
 5- Extention to extract all valid emails in string.</PackageReleaseNotes>
+    <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\Desktop\ReadMe.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
