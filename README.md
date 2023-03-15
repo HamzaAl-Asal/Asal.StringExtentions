@@ -1,8 +1,8 @@
 # Asal.StringExtentions
 
-**How to install Asal.StringExtensions ?
+**How to install Asal.StringExtentions ?
 
--You can easily install it from Manage Nuget package and write Asal so it will display for you as "Asal.StringExtensions" click download.
+-You can easily install it from Manage Nuget package and write Asal so it will display for you as "Asal.StringExtentions" click download.
 
 **How can I use it ?
 
