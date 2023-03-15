@@ -4,6 +4,9 @@ using System.Text.RegularExpressions;
 
 namespace Asal.StringExtentions
 {
+    /// <summary>
+    /// StringExtentions.cs
+    /// </summary>
     public static class StringExtentions
     {
         #region Clear Special Characters
