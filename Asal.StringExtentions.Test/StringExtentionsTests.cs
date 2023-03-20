@@ -99,5 +99,57 @@ namespace Asal.StringExtentions.Test
         }
 
         #endregion
+
+        #region Json
+
+        [TestMethod]
+        public void ExtractResultNameJsonPropertyValueTest()
+        {
+            var input = "{\"SearchTerm\":\"saw\",\"GeneralSearchDetails\":[{\"ResultName\":\"Blogs\",\"SchemaId\":27,\"pageIndex\":1,\"pageSize\":3,\"OrderByField\":[\"createdOn\"],\"isDescending\":true,\"CustomFilter\":{\"blogs_isVideo\":{\"Values\":[0],\"Operator\":\"and\",\"QueryType\":2}}}],\"WithFilter\":true}";
+
+            var output = "Blogs";
+
+            var res = input.ExtractJsonPropertyValue<string>("GeneralSearchDetails[0].ResultName");
+
+            Assert.AreEqual(res, output);
+        }
+
+        [TestMethod]
+        public void ExtractSchemaIdJsonPropertyValueTest()
+        {
+            var input = "{\"SearchTerm\":\"saw\",\"GeneralSearchDetails\":[{\"ResultName\":\"Blogs\",\"SchemaId\":27,\"pageIndex\":1,\"pageSize\":3,\"OrderByField\":[\"createdOn\"],\"isDescending\":true,\"CustomFilter\":{\"blogs_isVideo\":{\"Values\":[0],\"Operator\":\"and\",\"QueryType\":2}}}],\"WithFilter\":true}";
+
+            var output = 27;
+
+            var res = input.ExtractJsonPropertyValue<int>("GeneralSearchDetails[0].SchemaId");
+
+            Assert.AreEqual(res, output);
+        }
+
+        [TestMethod]
+        public void ExtractSearchTermJsonPropertyValueTest()
+        {
+            var input = "{\"SearchTerm\":\"saw\"}";
+
+            var output = "saw";
+
+            var res = input.ExtractJsonPropertyValue<string>("SearchTerm");
+
+            Assert.AreEqual(res, output);
+        }
+
+        [TestMethod]
+        public void ExtractArrayJsonPropertyValueTest()
+        {
+            var input = "{\"name\":\"John\",\"age\":30,\"cars\":[\"Ford\", \"BMW\", \"Fiat\"]}";
+
+            var output = new List<string> { "Ford", "BMW", "Fiat" };
+
+            var res = input.ExtractJsonArrayPropertyValue<string>("cars");
+
+            Assert.IsTrue(res.SequenceEqual(output));
+        }
+
+        #endregion
     }
 }
