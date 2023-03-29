@@ -1,10 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Schema;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Asal.StringExtentions
 {
@@ -13,7 +10,7 @@ namespace Asal.StringExtentions
     /// </summary>
     public static partial class StringExtentions
     {
-        #region Json
+        #region Json extentions
         /// <summary>
         /// Extract value for a specific property key/name in Json body
         /// </summary>
@@ -30,13 +27,28 @@ namespace Asal.StringExtentions
 
             var jObjectParse = JObject.Parse(jsonBody);
 
+            return jObjectParse.SelectToken(jsonProperty)
+                               .Value<T>();
+        }
+
+        /// <summary>
+        /// Try to extract value for a specific property key/name in Json body
+        /// </summary>
+        /// <param name="jsonBody">Represents json body</param>
+        /// <param name="jsonProperty">Represents json property that need to retrieve value for it</param>
+        /// <param name="result">Represents out result</param>
+        /// <returns>True: if the call success and return result in out result param, Otherwise: False </returns>
+        public static bool TryExtractJsonPropertyValue<T>(this string jsonBody, string jsonProperty, out T result)
+        {
             try
             {
-                return jObjectParse.SelectToken(jsonProperty).Value<T>();
+                result = jsonBody.ExtractJsonPropertyValue<T>(jsonProperty);
+                return true;
             }
-            catch
+            catch (Exception e)
             {
-                return default(T);
+                result = default(T);
+                return false;
             }
         }
 
@@ -59,8 +71,8 @@ namespace Asal.StringExtentions
             try
             {
                 return jObjectParse.SelectTokens(jsonProperty)
-                .Children()
-                .Select(x => x.Value<T>());
+                                   .Children()
+                                   .Select(x => x.Value<T>());
             }
             catch
             {

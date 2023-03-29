@@ -4,17 +4,17 @@
     <TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <PackageId>Asal.StringExtentions</PackageId>
-    <Version>1.0.3</Version>
+    <Version>1.1.0</Version>
     <Title>Asal.StringExtentions</Title>
     <Authors>Hamza Asal</Authors>
     <Company>Hamza Asal</Company>
     <Product>Asal.StringExtentions</Product>
     <Description>A simple package that help you to call some string extentions to make some proccess on the string</Description>
-    <PackageTags>String, extentions, Strings, Asal, email, string checker, string extenstions</PackageTags>
+    <PackageTags>String, extentions, Strings, Asal, email, string checker, string extensions, json extract</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/HamzaAl-Asal/Asal.StringExtentions</RepositoryUrl>
-    <PackageReleaseNotes>Support mutiple target framworks (netstandard2.1 &amp; net6.0)</PackageReleaseNotes>
+    <PackageReleaseNotes>Build new extentions for the json values; which is allow to extract json property value and thats include the direct property extraction value or property inside object or even array values and more.</PackageReleaseNotes>
     <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
