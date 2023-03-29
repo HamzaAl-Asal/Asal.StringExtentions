@@ -68,15 +68,29 @@ namespace Asal.StringExtentions
 
             var jObjectParse = JObject.Parse(jsonBody);
 
+            return jObjectParse.SelectTokens(jsonProperty)
+                               .Children()
+                               .Select(x => x.Value<T>());
+        }
+
+        /// <summary>
+        /// Try extract values from json array
+        /// </summary>
+        /// <param name="jsonBody">Represents json body</param>
+        /// <param name="jsonProperty">Represents json property that need to retrieve value for it</param>
+        /// <param name="result">Represents out result</param>
+        /// <returns>True: if the call success and return result in out result param, Otherwise: False </returns>
+        public static bool TryExtractJsonArrayPropertyValue<T>(this string jsonBody, string jsonProperty, out IEnumerable<T> result)
+        {
             try
             {
-                return jObjectParse.SelectTokens(jsonProperty)
-                                   .Children()
-                                   .Select(x => x.Value<T>());
+                result = jsonBody.ExtractJsonArrayPropertyValue<T>(jsonProperty);
+                return true;
             }
-            catch
+            catch (Exception e)
             {
-                return default(IEnumerable<T>);
+                result = default(IEnumerable<T>);
+                return false;
             }
         }
         #endregion

@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <PackageId>Asal.StringExtentions</PackageId>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <Title>Asal.StringExtentions</Title>
     <Authors>Hamza Asal</Authors>
     <Company>Hamza Asal</Company>
@@ -14,7 +14,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/HamzaAl-Asal/Asal.StringExtentions</RepositoryUrl>
-    <PackageReleaseNotes>Build new extentions for the json values; which is allow to extract json property value and thats include the direct property extraction value or property inside object or even array values and more.</PackageReleaseNotes>
+    <PackageReleaseNotes>Create new Json extention to try extract json array values </PackageReleaseNotes>
     <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
