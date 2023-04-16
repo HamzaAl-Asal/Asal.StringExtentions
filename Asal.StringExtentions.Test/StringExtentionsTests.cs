@@ -197,7 +197,7 @@ namespace Asal.StringExtentions.Test
             var output = 25;
 
             var res = input.TryExtractJsonPropertyValue<int>("data[0].baseObject.age", out var result);
-           
+
             Assert.IsTrue(res);
             Assert.AreEqual(result, output);
         }
@@ -211,6 +211,123 @@ namespace Asal.StringExtentions.Test
             var res = input.ExtractJsonArrayPropertyValue<string>("cars");
 
             Assert.IsTrue(res.SequenceEqual(output));
+        }
+
+        [TestMethod]
+        public void XmlToJson()
+        {
+            string xml = @"
+                            <root>
+                              <person id='1'>
+                                <name>Alan</name>
+                                <url>http://www.google.com</url>
+                              </person>
+                              <person id='2'>
+                                <name>Louis</name>
+                                <url>http://www.yahoo.com</url>
+                              </person>
+                            </root>";
+
+            var output = @"{""root"":{""person"":[{""@id"":""1"",""name"":""Alan"",""url"":""http://www.google.com""},{""@id"":""2"",""name"":""Louis"",""url"":""http://www.yahoo.com""}]}}";
+            var result = xml.XmlToJson();
+
+            Assert.AreEqual(result, output.ToString());
+        }
+
+        [TestMethod]
+        public void XmlToJson2()
+        {
+            string xml = @"
+                           <glossary>
+                            <title>example glossary</title>
+                                <GlossDiv>
+                                <title>S</title>
+                                <GlossList>
+                                <GlossEntry>
+                                <ID>SGML</ID>
+                                <SortAs>SGML</SortAs>
+                                <GlossTerm>Standard Generalized Markup Language</GlossTerm>
+                                <Acronym>SGML</Acronym>
+                                <Abbrev>ISO 8879:1986</Abbrev>
+                                <GlossDef>
+                                <para>A meta-markup language, used to create markup languages such as DocBook.</para>
+                                <GlossSeeAlso>GML</GlossSeeAlso>
+                                <GlossSeeAlso>XML</GlossSeeAlso>
+                                </GlossDef>
+                                <GlossSee>markup</GlossSee>
+                                </GlossEntry>
+                                </GlossList>
+                                </GlossDiv>
+                           </glossary>";
+
+            var output = @"{""glossary"":{""title"":""example glossary"",""GlossDiv"":{""title"":""S"",""GlossList"":{""GlossEntry"":{""ID"":""SGML"",""SortAs"":""SGML"",""GlossTerm"":""Standard Generalized Markup Language"",""Acronym"":""SGML"",""Abbrev"":""ISO 8879:1986"",""GlossDef"":{""para"":""A meta-markup language, used to create markup languages such as DocBook."",""GlossSeeAlso"":[""GML"",""XML""]},""GlossSee"":""markup""}}}}}";
+            var result = xml.XmlToJson();
+
+            Assert.AreEqual(result, output);
+        }
+
+        [TestMethod]
+        public void JsonToXml()
+        {
+            //no root here, so it will takes the default which is "root", or you can name it what you want with the deserilizeRootElementName param
+            string json = @"{
+'Id': 1,
+  'Email': 'james@example.com',
+  'Active': true,
+  'CreatedDate': '2013-01-20T00:00:00Z',
+  'Roles': [
+    'User',
+    'Admin'
+  ],
+  'Team': {
+    'Id': 2,
+    'Name': 'Software Developers',
+    'Description': 'Creators of fine software products and services.'
+  }
+}";
+
+            var xmlOutput = @"<root><Id>1</Id><Email>james@example.com</Email><Active>true</Active><CreatedDate>2013-01-20T00:00:00Z</CreatedDate><Roles>User</Roles><Roles>Admin</Roles><Team><Id>2</Id><Name>Software Developers</Name><Description>Creators of fine software products and services.</Description></Team></root>";
+
+            var result = json.JsonToXml();
+
+            Assert.AreEqual(result, xmlOutput);
+        }
+
+        [TestMethod]
+        public void JsonToXmlWithoutRootElementName()
+        {
+
+            //the root here is glossary tag, so you can send an empty string or null to the deserilizeRootElementName param
+            string json = @"{
+   ""glossary"": {
+      ""title"": ""example glossary"",
+      ""GlossDiv"": {
+         ""title"": ""S"",
+         ""GlossList"": {
+            ""GlossEntry"": {
+               ""ID"": ""SGML"",
+               ""SortAs"": ""SGML"",
+               ""GlossTerm"": ""Standard Generalized Markup Language"",
+               ""Acronym"": ""SGML"",
+               ""Abbrev"": ""ISO 8879:1986"",
+               ""GlossDef"": {
+                  ""para"": ""A meta-markup language, used to create markup languages such as DocBook."",
+                  ""GlossSeeAlso"": [
+                     ""GML"",
+                     ""XML""
+                  ]
+               },
+               ""GlossSee"": ""markup""
+            }
+         }
+      }
+   }
+}
+";
+            var output = @"<glossary><title>example glossary</title><GlossDiv><title>S</title><GlossList><GlossEntry><ID>SGML</ID><SortAs>SGML</SortAs><GlossTerm>Standard Generalized Markup Language</GlossTerm><Acronym>SGML</Acronym><Abbrev>ISO 8879:1986</Abbrev><GlossDef><para>A meta-markup language, used to create markup languages such as DocBook.</para><GlossSeeAlso>GML</GlossSeeAlso><GlossSeeAlso>XML</GlossSeeAlso></GlossDef><GlossSee>markup</GlossSee></GlossEntry></GlossList></GlossDiv></glossary>";
+            var result = json.JsonToXml(string.Empty);
+
+            Assert.AreEqual(result, output);
         }
 
         #endregion
