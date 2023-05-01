@@ -331,5 +331,96 @@ namespace Asal.StringExtentions.Test
         }
 
         #endregion
+
+        #region Json to Yaml
+        [TestMethod]
+        public void JsonToYamlFirstTest()
+        {
+            string json = @"{
+'Id': 1,
+  'Email': 'james@example.com',
+  'Active': true,
+  'CreatedDate': '2013-01-20T00:00:00Z',
+  'Roles': [
+    'User',
+    'Admin'
+  ],
+  'Team': {
+    'Id': 2,
+    'Name': 'Software Developers',
+    'Description': 'Creators of fine software products and services.'
+  }
+}";
+
+            var xmlOutput = "Id: 1\r\nEmail: james@example.com\r\nActive: true\r\nCreatedDate: 2013-01-20T00:00:00.0000000Z\r\nRoles:\r\n- User\r\n- Admin\r\nTeam:\r\n  Id: 2\r\n  Name: Software Developers\r\n  Description: Creators of fine software products and services.";
+
+            var result = json.JsonToYaml();
+
+            Assert.AreEqual(result, xmlOutput);
+        }
+
+        [TestMethod]
+        public void JsonToYamlSecondTest()
+        {
+            string jsonInput = @"{
+   ""glossary"": {
+      ""title"": ""example glossary"",
+      ""GlossDiv"": {
+         ""title"": ""S"",
+         ""GlossList"": {
+            ""GlossEntry"": {
+               ""ID"": ""SGML"",
+               ""SortAs"": ""SGML"",
+               ""GlossTerm"": ""Standard Generalized Markup Language"",
+               ""Acronym"": ""SGML"",
+               ""Abbrev"": ""ISO 8879:1986"",
+               ""GlossDef"": {
+                  ""para"": ""A meta-markup language, used to create markup languages such as DocBook."",
+                  ""GlossSeeAlso"": [
+                     ""GML"",
+                     ""XML""
+                  ]
+               },
+               ""GlossSee"": ""markup""
+            }
+         }
+      }
+   }
+}
+";
+
+            var xmlOutput = "glossary:\r\n  title: example glossary\r\n  GlossDiv:\r\n    title: S\r\n    GlossList:\r\n      GlossEntry:\r\n        ID: SGML\r\n        SortAs: SGML\r\n        GlossTerm: Standard Generalized Markup Language\r\n        Acronym: SGML\r\n        Abbrev: ISO 8879:1986\r\n        GlossDef:\r\n          para: A meta-markup language, used to create markup languages such as DocBook.\r\n          GlossSeeAlso:\r\n          - GML\r\n          - XML\r\n        GlossSee: markup";
+
+            var result = jsonInput.JsonToYaml();
+
+            Assert.AreEqual(result, xmlOutput);
+        }
+        #endregion
+
+        #region Yaml to Json
+        [TestMethod]
+        public void YamlToJsonFirstTest()
+        {
+            string yamlInput = "Id: 1\r\nEmail: james@example.com\r\nActive: true\r\nCreatedDate: 2013-01-20T00:00:00.0000000Z\r\nRoles:\r\n- User\r\n- Admin\r\nTeam:\r\n  Id: 2\r\n  Name: Software Developers\r\n  Description: Creators of fine software products and services.\r\n";
+
+            var jsonOutput = "{\"Id\": \"1\", \"Email\": \"james@example.com\", \"Active\": \"true\", \"CreatedDate\": \"2013-01-20T00:00:00.0000000Z\", \"Roles\": [\"User\", \"Admin\"], \"Team\": {\"Id\": \"2\", \"Name\": \"Software Developers\", \"Description\": \"Creators of fine software products and services.\"}}";
+
+            var result = yamlInput.YamlToJson();
+
+            Assert.AreEqual(result, jsonOutput);
+        }
+
+        [TestMethod]
+        public void YamlToJsonSecondTest()
+        {
+            string yamlInput = "glossary:\r\n  title: example glossary\r\n  GlossDiv:\r\n    title: S\r\n    GlossList:\r\n      GlossEntry:\r\n        ID: SGML\r\n        SortAs: SGML\r\n        GlossTerm: Standard Generalized Markup Language\r\n        Acronym: SGML\r\n        Abbrev: ISO 8879:1986\r\n        GlossDef:\r\n          para: A meta-markup language, used to create markup languages such as DocBook.\r\n          GlossSeeAlso:\r\n          - GML\r\n          - XML\r\n        GlossSee: markup\r\n";
+
+            var jsonOutput = "{\"glossary\": {\"title\": \"example glossary\", \"GlossDiv\": {\"title\": \"S\", \"GlossList\": {\"GlossEntry\": {\"ID\": \"SGML\", \"SortAs\": \"SGML\", \"GlossTerm\": \"Standard Generalized Markup Language\", \"Acronym\": \"SGML\", \"Abbrev\": \"ISO 8879:1986\", \"GlossDef\": {\"para\": \"A meta-markup language, used to create markup languages such as DocBook.\", \"GlossSeeAlso\": [\"GML\", \"XML\"]}, \"GlossSee\": \"markup\"}}}}}";
+
+            var result = yamlInput.YamlToJson();
+
+            Assert.AreEqual(result, jsonOutput);
+        }
+        #endregion
     }
 }

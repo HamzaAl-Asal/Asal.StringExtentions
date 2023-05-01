@@ -1,7 +1,11 @@
 ﻿
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
+using System.Dynamic;
+using System.IO;
 using System.Xml;
+using YamlDotNet.Serialization;
 
 namespace Asal.StringExtentions
 {
@@ -64,6 +68,57 @@ namespace Asal.StringExtentions
             {
                 throw e;
             }
+        }
+        #endregion
+
+        #region Json to Yaml
+        /// <summary>
+        /// Convert the giving Json to Yaml
+        /// </summary>
+        /// <param name="jsonStr"></param>
+        /// <returns>Yaml string</returns>
+        public static string JsonToYaml(this string jsonStr)
+        {
+            if (string.IsNullOrEmpty(jsonStr))
+            {
+                return string.Empty;
+            }
+
+            var expConverter = new ExpandoObjectConverter();
+            var serilizer = new Serializer();
+
+            var deserilizedObj = JsonConvert.DeserializeObject<ExpandoObject>(jsonStr, expConverter);
+
+            return serilizer
+                .Serialize(deserilizedObj)
+                .Trim();
+        }
+        #endregion
+
+        #region Yaml to Json
+        /// <summary>
+        /// Convert the giving Yaml to Json string
+        /// </summary>
+        /// <param name="yamlStr"></param>
+        /// <returns>Json string</returns>
+        public static string YamlToJson(this string yamlStr)
+        {
+            if (string.IsNullOrEmpty(yamlStr))
+            {
+                return string.Empty;
+            }
+
+            var stringReader = new StringReader(yamlStr);
+            var deserilizedObj = new Deserializer()
+                .Deserialize(stringReader);
+
+            var serializerBuilder = new SerializerBuilder()
+                .JsonCompatible()
+                .Build();
+
+            return serializerBuilder
+                .Serialize(deserilizedObj)
+                .Trim();
         }
         #endregion
     }
