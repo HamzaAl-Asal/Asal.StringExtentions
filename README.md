@@ -108,3 +108,145 @@ answer:
 var res = input.ExtractJsonArrayPropertyValue<string>("cars");
 the res value will be List<string> { "Ford", "BMW", "Fiat" }
 )
+
+************************************************************************************************************************
+(9)-> yourXmlStr.XmlToJson()-> Extention to Convert the giving xmlString into Json string .
+
+Example: 
+string xmlStr = @"<root>
+               <person id='1'>
+                <name>Alan</name>
+                 <url>http://www.google.com</url>
+               </person>
+               <person id='2'>
+                <name>Louis</name>
+                 <url>http://www.yahoo.com</url>
+               </person>
+               </root>";
+var result = xmlStr.XmlToJson() 
+the result here will be as json :
+{
+  "root": {
+    "person": [
+      {
+        "name": "Alan",
+        "url": "http://www.google.com"
+      },
+      {
+        "name": "Louis",
+        "url": "http://www.yahoo.com"
+      }
+    ]
+  }
+}
+************************************************************************************************************************
+(10)-> yourJsonStr.JsonToXml()-> Extention to Convert the giving Json into Xml.
+
+this Extention takes 3 params:
+1=> deserializeRootElementName (Optional) default value is "root" (string):-
+
+- in case that the json didn`t have a root element to deserilize, the default for this param is "root" and it can be changible to the name that you want 
+also if the Json have root element.. you can send this param as (string.Empty / null)
+
+2=> writeArrayAttribute (Optional) false by default (bool):-
+
+ - A value to indicate whether to write the Json.NET array attribute. This attribute
+ helps preserve arrays when converting the written XML back to JSON.
+
+3=> encodeSpecialCharacters (Optional) false by default (bool):-
+
+ - A value to indicate whether to encode special characters when converting JSON
+  to XML. If true, special characters like ':', '@', '?', '#' and '$' in JSON property
+  names aren't used to specify XML namespaces, attributes or processing directives.
+  Instead special characters are encoded and written as part of the XML element name.
+
+Example:
+1) Without root element tag 
+
+//which mean the giving json already have a root 
+//root name here is "glossary", so i will send deserializeRootElementName param as empty to take my root "glossary"
+
+ string jsonStr = @"
+{
+    "glossary": {
+        "title": "example glossary",
+		"GlossDiv": {
+            "title": "S",
+			"GlossList": {
+                "GlossEntry": {
+                    "ID": "SGML",
+					"SortAs": "SGML",
+					"GlossTerm": "Standard Generalized Markup Language",
+					"Acronym": "SGML",
+					"Abbrev": "ISO 8879:1986",
+					"GlossDef": {
+                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
+						"GlossSeeAlso": ["GML", "XML"]
+                    },
+					"GlossSee": "markup"
+                }
+            }
+        }
+    }
+}
+";
+
+var result = jsonStr.JsonToXml(string.Empty)
+so the result will be as Xml like the following:
+
+<glossary><title>example glossary</title>
+  <GlossDiv><title>S</title>
+   <GlossList>
+    <GlossEntry ID="SGML" SortAs="SGML">
+     <GlossTerm>Standard Generalized Markup Language</GlossTerm>
+     <Acronym>SGML</Acronym>
+     <Abbrev>ISO 8879:1986</Abbrev>
+     <GlossDef>
+      <para>A meta-markup language, used to create markup
+languages such as DocBook.</para>
+      <GlossSeeAlso OtherTerm="GML">
+      <GlossSeeAlso OtherTerm="XML">
+     </GlossDef>
+     <GlossSee OtherTerm="markup">
+    </GlossEntry>
+   </GlossList>
+  </GlossDiv>
+ </glossary>
+
+2) With root element tag 
+which means the the josn did`nt have a root element like the following ex:
+
+ string jsonStr = @"{
+  'Id': 1,
+  'Email': 'james@example.com',
+  'Active': true,
+  'CreatedDate': '2013-01-20T00:00:00Z',
+  'Roles': [
+    'User',
+    'Admin'
+  ],
+  'Team': {
+    'Id': 2,
+    'Name': 'Software Developers',
+    'Description': 'Creators of fine software products and services.'
+  }
+}";
+
+var result = jsonStr.JsonToXml()
+now, the result will be as xml like the following:
+
+<root>
+<Id>1</Id>
+<Email>james@example.com</Email>
+<Active>true</Active>
+<CreatedDate>2013-01-20T00:00:00Z</CreatedDate>
+<Roles>User</Roles>
+<Roles>Admin</Roles>
+<Team><Id>2</Id>
+<Name>Software Developers</Name>
+<Description>Creators of fine software products and services.</Description>
+</Team>
+</root>
+
+
+-- as u can see the default root element has been applied to the giving json named "root".
