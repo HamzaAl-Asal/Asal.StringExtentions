@@ -14,18 +14,15 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/HamzaAl-Asal/Asal.StringExtentions</RepositoryUrl>
-    <PackageReleaseNotes>Build new extention:-
--Slugify
-You can read the ReadMe file for more information about these new extentions.</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      Build new extention:-
+      -Slugify
+      You can read the ReadMe file for more information about these new extentions.
+    </PackageReleaseNotes>
     <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <ApplicationIcon>Logo\AsalLibraryLogo.ico</ApplicationIcon>
-    <PackageIcon>AsalLibraryLogo.ico</PackageIcon>
+    <PackageIcon>AsalLibraryCroppedLogo.ico</PackageIcon>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="Logo\AsalLibraryLogo.ico" Pack="true" PackagePath="\" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\..\..\Desktop\ReadMe.md">
@@ -41,7 +38,7 @@ You can read the ReadMe file for more information about these new extentions.</P
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Logo\AsalLibraryLogo.ico">
+    <None Update="Logo\AsalLibraryCroppedLogo.ico">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
