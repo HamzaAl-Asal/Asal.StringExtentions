@@ -422,5 +422,19 @@ namespace Asal.StringExtentions.Test
             Assert.AreEqual(result, jsonOutput);
         }
         #endregion
+
+        #region Slugify
+        [TestMethod]
+        public void Slugify()
+        {
+            string input = "Thi&s is a test!";
+            string output = "this-is-a-test";
+
+
+            var result = input.Slugify();
+
+            Assert.AreEqual(result, output);
+        }
+        #endregion
     }
 }

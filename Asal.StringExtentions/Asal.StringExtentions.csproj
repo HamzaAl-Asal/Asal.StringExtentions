@@ -20,7 +20,12 @@
 You can read the ReadMe file for more information about these new extentions.</PackageReleaseNotes>
     <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <ApplicationIcon>Logo\AsalLibraryLogo.png</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Logo\AsalLibraryLogo.png" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\..\..\Desktop\ReadMe.md">

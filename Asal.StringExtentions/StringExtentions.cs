@@ -1,4 +1,7 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Asal.StringExtentions
 {
@@ -58,6 +61,49 @@ namespace Asal.StringExtentions
             return Regex.Replace(str, RegularExpressionConstant.removeDigitsFromString, replaceDigitsWithSpace ? " " : "").Trim();
         }
 
+        #endregion
+
+        #region Slugify
+        /// <summary>  
+        /// Turn a string into a slug by removing all accents,   
+        /// special characters, additional spaces, substituting   
+        /// spaces with hyphens and making it lower-case.  
+        /// </summary>  
+        /// <param name="text">The string to turn into a slug.</param>  
+        /// <returns>A string that slugified</returns>  
+        public static string Slugify(this string text)
+        {
+            var result = text.RemoveAccents().ToLowerInvariant();
+
+            // Remove all special characters from the string.  
+            result = Regex.Replace(result, @"[^A-Za-z0-9\s-]", "");
+
+            // Remove all additional spaces in favour of just one.  
+            result = Regex.Replace(result, @"\s+", " ").Trim();
+
+            // Replace all spaces with the hyphen.  
+            result = Regex.Replace(result, @"\s", "-");
+
+            return result;
+        }
+
+        /// <summary>  
+        /// Removes all accents from the input string.  
+        /// </summary>  
+        /// <param name="text">The input string.</param>  
+        /// <returns></returns>  
+        private static string RemoveAccents(this string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return text;
+
+            text = text.Normalize(NormalizationForm.FormD);
+            char[] chars = text
+                .Where(c => CharUnicodeInfo.GetUnicodeCategory(c)
+                != UnicodeCategory.NonSpacingMark).ToArray();
+
+            return new string(chars).Normalize(NormalizationForm.FormC);
+        }
         #endregion
     }
 }
