@@ -19,11 +19,11 @@
 You can read the ReadMe file for more information about these new extentions.</PackageReleaseNotes>
     <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <ApplicationIcon>Logo\AsalLibraryLogo.png</ApplicationIcon>
+    <ApplicationIcon>Logo\AsalLibraryLogo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Logo\AsalLibraryLogo.png" />
+    <Content Include="Logo\AsalLibraryLogo.ico" />
   </ItemGroup>
 
   <ItemGroup>
