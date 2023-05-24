@@ -250,3 +250,70 @@ now, the result will be as xml like the following:
 
 
 -- as u can see the default root element has been applied to the giving json named "root".
+
+************************************************************************************************************************
+(11)-> YourYamlString.YamlToJson() -> Extention to convert the json string body to yaml format.
+
+Example: 
+Let say that have the following yaml body::
+
+ string yamlBody = "Id: 1 Email: james@example.com Active: true CreatedDate: 2013-01-20T00:00:00.0000000Z Roles: - User - Admin Team: Id: 2 Name: Software Developers Description: Creators of fine software products and services.";
+
+var result = yamlBody.YamlToJson();
+
+now, the output result will be a new json body format like the following:
+
+result  = {\"Id\": \"1\",
+ \"Email\": \"james@example.com\",
+ \"Active\": \"true\",
+ \"CreatedDate\": \"2013-01-20T00:00:00.0000000Z\",
+ \"Roles\": [\"User\", \"Admin\"],
+ \"Team\": 
+{\"Id\": \"2\",
+ \"Name\": \"Software Developers\",
+ \"Description\": \"Creators of fine software products and services.\"}
+};
+
+************************************************************************************************************************
+(12)-> YourJsonString.JsonToYaml() -> Extention to convert Yaml string body to Josn string format.
+
+Example:
+
+let`s take a json body to convert it to Yaml::
+
+string jsonInput = @"{
+   ""glossary"": {
+      ""title"": ""example glossary"",
+      ""GlossDiv"": {
+         ""title"": ""S"",
+         ""GlossList"": {
+            ""GlossEntry"": {
+               ""ID"": ""SGML"",
+               ""SortAs"": ""SGML"",
+               ""GlossTerm"": ""Standard Generalized Markup Language"",
+               ""Acronym"": ""SGML"",
+               ""Abbrev"": ""ISO 8879:1986"",
+               ""GlossDef"": {
+                  ""para"": ""A meta-markup language, used to create markup languages such as DocBook."",
+                  ""GlossSeeAlso"": [
+                     ""GML"",
+                     ""XML""
+                  ]
+               },
+               ""GlossSee"": ""markup""
+            }
+         }
+      }
+   }
+}
+";
+
+var result = jsonInput.JsonToYaml();
+
+after the extention excecuted the result will return a new Yaml string format for the giving json like the following::
+
+result = "glossary:title: example glossary GlossDiv: title: S GlossList: GlossEntry: ID:
+SGML SortAs: SGML GlossTerm: Standard Generalized Markup Language Acronym: SGML
+Abbrev: ISO 8879:1986 GlossDef: para: A meta-markup language, used to create
+markup languages such as DocBook. GlossSeeAlso: - GML - XML GlossSee: markup"
+
