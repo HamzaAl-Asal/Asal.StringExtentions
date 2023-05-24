@@ -29,10 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Logo\AsalLibraryLogo.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="Logo\AsalLibraryLogo.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
