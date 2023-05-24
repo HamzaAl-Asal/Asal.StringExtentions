@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <PackageId>Asal.StringExtentions</PackageId>
-    <Version>1.4.0</Version>
+    <Version>1.5.0</Version>
     <Title>Asal.StringExtentions</Title>
     <Authors>Hamza Asal</Authors>
     <Company>Hamza Asal</Company>
@@ -14,9 +14,8 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/HamzaAl-Asal/Asal.StringExtentions</RepositoryUrl>
-    <PackageReleaseNotes>Build new converter extentions:-
-1- YamlToJson()
-2- JsonToYaml()
+    <PackageReleaseNotes>Build new extention:-
+-Slugify
 You can read the ReadMe file for more information about these new extentions.</PackageReleaseNotes>
     <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
