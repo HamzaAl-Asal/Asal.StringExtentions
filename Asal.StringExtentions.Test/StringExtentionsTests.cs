@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using System.Runtime.CompilerServices;
 
 namespace Asal.StringExtentions.Test
 {
@@ -435,6 +434,70 @@ namespace Asal.StringExtentions.Test
 
             Assert.AreEqual(result, output);
         }
+        #endregion
+
+        #region Case conversion
+
+        [TestMethod]
+        public void ToCamelCaseTest()
+        {
+            string input = "Harry Potter";
+            string output = "harryPotter";
+
+
+            var result = input.ToCamelCase();
+
+            Assert.AreEqual(result, output);
+        }
+
+        public void ToPascalCaseTest()
+        {
+            string input = "Harry Potter";
+            string output = "HarryPotter";
+
+
+            var result = input.ToPascalCase();
+
+            Assert.AreEqual(result, output);
+        }
+
+        public void ToSnakeCaseTest()
+        {
+            string input = "Harry Potter";
+            string output = "harry_potter";
+
+
+            var result = input.ToSnakeCase();
+
+            Assert.AreEqual(result, output);
+        }
+
+        public void ToKebabCaseTest()
+        {
+            string input = "Harry Potter";
+            string output = "harry-potter";
+
+
+            var result = input.ToKebabCase();
+
+            Assert.AreEqual(result, output);
+        }
+
+        #endregion
+
+        #region Checksum
+
+        public void CalculateMD5ChecksumTest()
+        {
+            string input = "Harry";
+            string output = "db05833c29e688b5ab54d5e8608a72ec";
+
+
+            var result = input.CalculateMD5Checksum();
+
+            Assert.AreEqual(result, output);
+        }
+
         #endregion
     }
 }
