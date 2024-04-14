@@ -15,7 +15,7 @@ namespace Asal.StringExtentions
         public static string ToCamelCase(this string str)
         {
             if (string.IsNullOrEmpty(str))
-                return str;
+                return string.Empty;
 
             string[] stringChars = str.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
@@ -37,7 +37,7 @@ namespace Asal.StringExtentions
         public static string ToPascalCase(this string str)
         {
             if (string.IsNullOrEmpty(str))
-                return str;
+                return string.Empty;
 
             string[] stringChars = str.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
@@ -57,7 +57,7 @@ namespace Asal.StringExtentions
         public static string ToSnakeCase(this string str)
         {
             if (string.IsNullOrEmpty(str))
-                return str;
+                return string.Empty;
 
             return str.Replace(" ", "_").ToLower();
         }
@@ -70,7 +70,7 @@ namespace Asal.StringExtentions
         public static string ToKebabCase(this string str)
         {
             if (string.IsNullOrEmpty(str))
-                return str;
+                return string.Empty;
 
             return str.Replace(" ", "-").ToLower();
         }
