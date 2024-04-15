@@ -165,7 +165,7 @@ var result = input.ToSnakeCase();
 
 // result will be "hello_world"
 
-17) ToKebabCase()-> Converts the input string to kebab-case format.
+17)-> ToKebabCase()-> Converts the input string to kebab-case format.
 
 Example:
 
@@ -173,3 +173,14 @@ var input = "hello world";
 var result = input.ToKebabCase();
 
 // result will be "hello-world"
+
+18)-> CalculateMD5Checksum()-> Calculates the MD5 checksum (hash) of the input string.
+
+Description: This method calculates the MD5 checksum of the input string and returns it as a hexadecimal string. It is commonly used to verify the integrity of data by generating a unique hash for the input string.
+
+Example:
+
+var input = "hello world";
+var checksum = input.CalculateMD5Checksum();
+
+// checksum will be "5eb63bbbe01eeed093cb22bb8f5acdc3"
