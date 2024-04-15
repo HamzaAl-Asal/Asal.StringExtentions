@@ -134,7 +134,11 @@ after the extention excecuted the result will return a new Yaml string format fo
 
 result = "glossary:title: example glossary GlossDiv: title: S GlossList: GlossEntry: ID: SGML SortAs: SGML GlossTerm: Standard Generalized Markup Language Acronym: SGML Abbrev: ISO 8879:1986 GlossDef: para: A meta-markup language, used to create markup languages such as DocBook. GlossSeeAlso: - GML - XML GlossSee: markup"
 
-13)-> ToCamelCase()-> Converts the input string to camelCase format.
+(13)-> YourString.Slugify() → Extention that Turn a string into a slug by removing all accents,
+special characters, additional spaces, substituting
+spaces with hyphens and making it lower-case.
+
+14)-> ToCamelCase()-> Converts the input string to camelCase format.
 
 Example: 
 
@@ -143,7 +147,7 @@ var result = input.ToCamelCase();
 
 // result will be "helloWorld"
 
-14)-> ToPascalCase()-> Converts the input string to PascalCase format.
+15)-> ToPascalCase()-> Converts the input string to PascalCase format.
 
 Example:
 
@@ -152,7 +156,7 @@ var result = input.ToPascalCase();
 
 // result will be "HelloWorld"
 
-15)-> ToSnakeCase()-> Converts the input string to snake_case format.
+16)-> ToSnakeCase()-> Converts the input string to snake_case format.
 
 Example:
  
@@ -161,7 +165,7 @@ var result = input.ToSnakeCase();
 
 // result will be "hello_world"
 
-16) ToKebabCase()-> Converts the input string to kebab-case format.
+17) ToKebabCase()-> Converts the input string to kebab-case format.
 
 Example:
 
