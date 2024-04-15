@@ -15,7 +15,6 @@
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/HamzaAl-Asal/Asal.StringExtentions</RepositoryUrl>
     <PackageReleaseNotes>Add package Logo</PackageReleaseNotes>
-    <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PackageIcon>AsalLibraryCroppedLogo.png</PackageIcon>
   </PropertyGroup>
