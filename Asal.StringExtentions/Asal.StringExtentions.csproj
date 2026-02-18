@@ -2,9 +2,10 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <PackageId>Asal.StringExtentions</PackageId>
-    <Version>1.6.1</Version>
+    <Version>1.7.0</Version>
     <Title>Asal.StringExtentions</Title>
     <Authors>Hamza Asal</Authors>
     <Company>Hamza Asal</Company>
@@ -14,7 +15,18 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/HamzaAl-Asal/Asal.StringExtentions</RepositoryUrl>
-    <PackageReleaseNotes>Implement Checksum and Case conversion features</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      Improvements and behavioral adjustments:
+      - Introduced centralized compiled RegexPatterns for better performance
+      - Improved JSON array extraction to support both primitive and object tokens
+      - Fixed nullable warnings in JSON helper methods
+      - Code cleanup and reliability improvements
+
+      Behavioral Change:
+      - JsonToXml() no longer wraps the result in a default root element automatically.
+      Pass a root name explicitly if wrapping is required.
+    </PackageReleaseNotes>
+
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PackageIcon>AsalLibraryCroppedLogo.png</PackageIcon>
   </PropertyGroup>

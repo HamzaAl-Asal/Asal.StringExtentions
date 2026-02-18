@@ -6,93 +6,88 @@ using System.Linq;
 namespace Asal.StringExtentions
 {
     /// <summary>
-    /// StringExtentions.cs
+    /// JSON related string extension helpers.
     /// </summary>
     public static partial class StringExtentions
     {
-        #region Json extentions
+        #region Json extensions
+
         /// <summary>
-        /// Extract value for a specific property key/name in Json body
+        /// Extract value for a specific property key/name in JSON body.
         /// </summary>
-        /// <param name="jsonBody">Represents json body</param>
-        /// <param name="jsonProperty">Represents json property that need to retrieve value for it</param>
-        /// <returns>Extracted property value</returns>
         public static T ExtractJsonPropertyValue<T>(this string jsonBody, string jsonProperty)
         {
-            if (string.IsNullOrEmpty(jsonBody))
+            if (string.IsNullOrWhiteSpace(jsonBody))
                 throw new ArgumentNullException(nameof(jsonBody));
 
-            if (string.IsNullOrEmpty(jsonProperty))
+            if (string.IsNullOrWhiteSpace(jsonProperty))
                 throw new ArgumentNullException(nameof(jsonProperty));
 
-            var jObjectParse = JObject.Parse(jsonBody);
+            var token = JObject.Parse(jsonBody).SelectToken(jsonProperty);
 
-            return jObjectParse.SelectToken(jsonProperty)
-                               .Value<T>();
+            if (token is null)
+                throw new InvalidOperationException($"Property '{jsonProperty}' not found.");
+
+            return token.Value<T>()!;
         }
 
         /// <summary>
-        /// Try to extract value for a specific property key/name in Json body
+        /// Try to extract value for a specific property key/name in JSON body.
         /// </summary>
-        /// <param name="jsonBody">Represents json body</param>
-        /// <param name="jsonProperty">Represents json property that need to retrieve value for it</param>
-        /// <param name="result">Represents out result</param>
-        /// <returns>True: if the call success and return result in out result param, Otherwise: False </returns>
-        public static bool TryExtractJsonPropertyValue<T>(this string jsonBody, string jsonProperty, out T result)
+        public static bool TryExtractJsonPropertyValue<T>(this string jsonBody, string jsonProperty, out T? result)
         {
             try
             {
                 result = jsonBody.ExtractJsonPropertyValue<T>(jsonProperty);
                 return true;
             }
-            catch (Exception e)
+            catch
             {
-                result = default(T);
+                result = default;
                 return false;
             }
         }
 
         /// <summary>
-        /// Extract values from json array
+        /// Extract values from JSON array property.
+        /// Supports arrays of primitives and objects.
         /// </summary>
-        /// <param name="jsonBody">Represents json body</param>
-        /// <param name="jsonProperty">Represents json property that need to retrieve value for it</param>
-        /// <returns>Json array values</returns>
         public static IEnumerable<T> ExtractJsonArrayPropertyValue<T>(this string jsonBody, string jsonProperty)
         {
-            if (string.IsNullOrEmpty(jsonBody))
+            if (string.IsNullOrWhiteSpace(jsonBody))
                 throw new ArgumentNullException(nameof(jsonBody));
 
-            if (string.IsNullOrEmpty(jsonProperty))
+            if (string.IsNullOrWhiteSpace(jsonProperty))
                 throw new ArgumentNullException(nameof(jsonProperty));
 
-            var jObjectParse = JObject.Parse(jsonBody);
+            var tokens = JObject.Parse(jsonBody).SelectTokens(jsonProperty);
 
-            return jObjectParse.SelectTokens(jsonProperty)
-                               .Children()
-                               .Select(x => x.Value<T>());
+            return tokens
+                .SelectMany(t =>
+                    t.Type == JTokenType.Array
+                        ? t.Children().Select(c => c.ToObject<T>())
+                        : new[] { t.ToObject<T>() })
+                .Where(x => x != null)!
+                .Select(x => x!);
         }
 
         /// <summary>
-        /// Try extract values from json array
+        /// Try extract values from JSON array property.
         /// </summary>
-        /// <param name="jsonBody">Represents json body</param>
-        /// <param name="jsonProperty">Represents json property that need to retrieve value for it</param>
-        /// <param name="result">Represents out result</param>
-        /// <returns>True: if the call success and return result in out result param, Otherwise: False </returns>
-        public static bool TryExtractJsonArrayPropertyValue<T>(this string jsonBody, string jsonProperty, out IEnumerable<T> result)
+        public static bool TryExtractJsonArrayPropertyValue<T>(this string jsonBody, string jsonProperty, out IEnumerable<T>? result)
         {
             try
             {
                 result = jsonBody.ExtractJsonArrayPropertyValue<T>(jsonProperty);
                 return true;
             }
-            catch (Exception e)
+            catch
             {
-                result = default(IEnumerable<T>);
+                result = default;
                 return false;
             }
         }
+
         #endregion
     }
 }

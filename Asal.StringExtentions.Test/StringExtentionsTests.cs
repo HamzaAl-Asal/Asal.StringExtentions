@@ -213,6 +213,48 @@ namespace Asal.StringExtentions.Test
         }
 
         [TestMethod]
+        public void ExtractPrimitiveArrayValuesTest()
+        {
+            var input = "{\"cars\":[\"Ford\",\"BMW\",\"Fiat\"]}";
+            var expected = new List<string> { "Ford", "BMW", "Fiat" };
+
+            var result = input.ExtractJsonArrayPropertyValue<string>("cars").ToList();
+
+            CollectionAssert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void ExtractPrimitiveArrayValues_WithWildcardPath_Test()
+        {
+            var input = "{\"items\":[{\"id\":1},{\"id\":2}]}";
+            var expected = new List<int> { 1, 2 };
+
+            var result = input.ExtractJsonArrayPropertyValue<int>("items[*].id").ToList();
+
+            CollectionAssert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void ExtractNestedArrayValuesTest()
+        {
+            var input = "{\"root\":{\"tags\":[\"a\",\"b\",\"c\"]}}";
+            var expected = new List<string> { "a", "b", "c" };
+
+            var result = input.ExtractJsonArrayPropertyValue<string>("root.tags").ToList();
+
+            CollectionAssert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void ExtractEmptyArrayValuesTest()
+        {
+            var input = "{\"items\":[]}";
+            var result = input.ExtractJsonArrayPropertyValue<string>("items");
+
+            Assert.IsFalse(result.Any());
+        }
+
+        [TestMethod]
         public void XmlToJson()
         {
             string xml = @"
@@ -268,7 +310,6 @@ namespace Asal.StringExtentions.Test
         [TestMethod]
         public void JsonToXml()
         {
-            //no root here, so it will takes the default which is "root", or you can name it what you want with the deserilizeRootElementName param
             string json = @"{
 'Id': 1,
   'Email': 'james@example.com',
@@ -287,10 +328,12 @@ namespace Asal.StringExtentions.Test
 
             var xmlOutput = @"<root><Id>1</Id><Email>james@example.com</Email><Active>true</Active><CreatedDate>2013-01-20T00:00:00Z</CreatedDate><Roles>User</Roles><Roles>Admin</Roles><Team><Id>2</Id><Name>Software Developers</Name><Description>Creators of fine software products and services.</Description></Team></root>";
 
-            var result = json.JsonToXml();
+            // Explicitly request wrapping
+            var result = json.JsonToXml("root");
 
-            Assert.AreEqual(result, xmlOutput);
+            Assert.AreEqual(xmlOutput, result);
         }
+
 
         [TestMethod]
         public void JsonToXmlWithoutRootElementName()
@@ -327,6 +370,17 @@ namespace Asal.StringExtentions.Test
             var result = json.JsonToXml(string.Empty);
 
             Assert.AreEqual(result, output);
+        }
+
+        [TestMethod]
+        public void Xml_RoundTrip_Should_Not_Duplicate_Root()
+        {
+            var xml = "<root><name>Hamza</name></root>";
+
+            var json = xml.XmlToJson();
+            var xmlBack = json.JsonToXml();
+
+            Assert.AreEqual("<root><name>Hamza</name></root>", xmlBack);
         }
 
         #endregion

@@ -1,5 +1,4 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Dynamic;
@@ -15,111 +14,95 @@ namespace Asal.StringExtentions
     public static partial class StringExtentions
     {
         #region Xml To Json
+
         /// <summary>
-        /// Convert the giving xml to Json string
+        /// Converts the given XML string to a JSON string.
         /// </summary>
-        /// <param name="xmlStr"></param>
-        /// <returns>Serialized Json string</returns>
         public static string XmlToJson(this string xmlStr)
         {
-            if (string.IsNullOrEmpty(xmlStr))
-            {
+            if (string.IsNullOrWhiteSpace(xmlStr))
                 return string.Empty;
-            }
 
-            try
-            {
-                var xmlDocument = new XmlDocument();
-                xmlDocument.LoadXml(xmlStr);
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(xmlStr);
 
-                var jsonStr = JsonConvert.SerializeXmlNode(xmlDocument);
-                return jsonStr;
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            return JsonConvert.SerializeXmlNode(xmlDocument);
         }
+
         #endregion
 
-        #region Json to Xml       
+        #region Json To Xml
+
         /// <summary>
-        /// Convert the giving Json to Xml
+        /// Converts the given JSON string to XML.
         /// </summary>
-        /// <param name="jsonStr"></param>
-        /// <param name="deserializeRootElementName"></param>
-        /// <param name="writeArrayAttribute"></param>
-        /// <param name="encodeSpecialCharacters"></param>
-        /// <returns>Deserialized Xml</returns>
-        public static string JsonToXml(this string jsonStr, string deserializeRootElementName = "root", bool writeArrayAttribute = false, bool encodeSpecialCharacters = false)
+        public static string JsonToXml(
+            this string jsonStr,
+            string? deserializeRootElementName = null,
+            bool writeArrayAttribute = false,
+            bool encodeSpecialCharacters = false)
         {
-            if (string.IsNullOrEmpty(jsonStr))
-            {
+            if (string.IsNullOrWhiteSpace(jsonStr))
                 return string.Empty;
-            }
 
-            try
-            {
-                var xmlStr = JsonConvert.DeserializeXmlNode(jsonStr, deserializeRootElementName, writeArrayAttribute, encodeSpecialCharacters).InnerXml;
+            var xmlDocument = JsonConvert.DeserializeXmlNode(
+                jsonStr,
+                deserializeRootElementName,
+                writeArrayAttribute,
+                encodeSpecialCharacters);
 
-                return xmlStr;
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            return xmlDocument?.InnerXml ?? string.Empty;
         }
+
         #endregion
 
-        #region Json to Yaml
+        #region Json To Yaml
+
         /// <summary>
-        /// Convert the giving Json to Yaml
+        /// Converts the given JSON string to a YAML string.
         /// </summary>
-        /// <param name="jsonStr"></param>
-        /// <returns>Yaml string</returns>
         public static string JsonToYaml(this string jsonStr)
         {
-            if (string.IsNullOrEmpty(jsonStr))
-            {
+            if (string.IsNullOrWhiteSpace(jsonStr))
                 return string.Empty;
-            }
 
             var expConverter = new ExpandoObjectConverter();
-            var serilizer = new Serializer();
+            var serializer = new Serializer();
 
-            var deserilizedObj = JsonConvert.DeserializeObject<ExpandoObject>(jsonStr, expConverter);
+            var deserializedObj =
+                JsonConvert.DeserializeObject<ExpandoObject>(jsonStr, expConverter);
 
-            return serilizer
-                .Serialize(deserilizedObj)
+            return serializer
+                .Serialize(deserializedObj)
                 .Trim();
         }
+
         #endregion
 
-        #region Yaml to Json
+        #region Yaml To Json
+
         /// <summary>
-        /// Convert the giving Yaml to Json string
+        /// Converts the given YAML string to a JSON string.
         /// </summary>
-        /// <param name="yamlStr"></param>
-        /// <returns>Json string</returns>
         public static string YamlToJson(this string yamlStr)
         {
-            if (string.IsNullOrEmpty(yamlStr))
-            {
+            if (string.IsNullOrWhiteSpace(yamlStr))
                 return string.Empty;
-            }
 
-            var stringReader = new StringReader(yamlStr);
-            var deserilizedObj = new Deserializer()
+            using var stringReader = new StringReader(yamlStr);
+
+            var deserializedObj = new Deserializer()
                 .Deserialize(stringReader);
 
-            var serializerBuilder = new SerializerBuilder()
+            var serializer = new SerializerBuilder()
                 .JsonCompatible()
                 .Build();
 
-            return serializerBuilder
-                .Serialize(deserilizedObj)
+            return serializer
+                .Serialize(deserializedObj)
                 .Trim();
         }
+
         #endregion
     }
 }
