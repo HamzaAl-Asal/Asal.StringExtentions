@@ -23,7 +23,9 @@ namespace Asal.StringExtentions
             if (string.IsNullOrWhiteSpace(str))
                 return string.Empty;
 
-            return Regex.Replace(str, RegularExpressionConstant.removeSpecialCharacters, replaceSpecialCharWithSpace ? " " : "").Trim();
+            return RegexPatterns.RemoveSpecialCharacters
+                .Replace(str, replaceSpecialCharWithSpace ? " " : "")
+                .Trim();
         }
 
         #endregion
@@ -40,7 +42,7 @@ namespace Asal.StringExtentions
             if (string.IsNullOrWhiteSpace(str))
                 return string.Empty;
 
-            return Regex.Replace(str, RegularExpressionConstant.separateWordsWithSpaces, " $1");
+            return RegexPatterns.SeparateWordsWithSpaces.Replace(str, " $1");
         }
 
         #endregion
@@ -58,7 +60,9 @@ namespace Asal.StringExtentions
             if (string.IsNullOrWhiteSpace(str))
                 return string.Empty;
 
-            return Regex.Replace(str, RegularExpressionConstant.removeDigitsFromString, replaceDigitsWithSpace ? " " : "").Trim();
+            return RegexPatterns.RemoveDigitsFromString
+                .Replace(str, replaceDigitsWithSpace ? " " : "")
+                .Trim();
         }
 
         #endregion
