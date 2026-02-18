@@ -21,7 +21,7 @@ namespace Asal.StringExtentions
             if (string.IsNullOrWhiteSpace(str) || !str.Contains('@'))
                 return false;
 
-            return Regex.IsMatch(str, RegularExpressionConstant.emailRegex);
+            return RegexPatterns.Email.IsMatch(str);
         }
 
         #endregion
@@ -38,13 +38,15 @@ namespace Asal.StringExtentions
             if (string.IsNullOrWhiteSpace(str))
                 return Enumerable.Empty<string>();
 
-            var extractedEmails = new Regex(RegularExpressionConstant.basicEmail)
+            var extractedEmails = RegexPatterns.BasicEmail
                 .Matches(str)
                 .Cast<Match>()
                 .Select(x => x.Value)
                 .ToList();
 
-            return extractedEmails.Where(x => Regex.IsMatch(x, RegularExpressionConstant.emailRegex)).ToList();
+            return extractedEmails
+                .Where(x => RegexPatterns.Email.IsMatch(x))
+                .ToList();
         }
 
         #endregion
